@@ -1,0 +1,42 @@
+<form [formGroup]='forma'  (ngSubmit)="dodajVrstuKredista()" autocomplete="off" >
+    <div class="row justify-content-center mt-3">
+        <div class="col-4">
+            <div class="form-group">
+                <label> <strong>Naziv:</strong> </label>
+                <input
+                [class.is-invalid]='forma.get("naziv").errors && forma.get("naziv").touched'
+                [class.is-valid]='forma.get("naziv") && forma.get("naziv").touched'
+                type="text" 
+                class="form-control"
+                formControlName='naziv'
+                >
+                <div *ngIf="forma.get('naziv').hasError('required')" class="invalid-feedback"> Unesite naziv</div>
+                <div *ngIf="forma.get('naziv').hasError('minlength')" class="invalid-feedback"> Unesite naziv od bar dva slova</div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-4">
+            <label> <strong>Vrsta valute:</strong> </label>
+            <select
+            class="form-control mb-3"
+            formControlName='sifraValute'
+            >
+            <option *ngFor="let item of vrsteValuta" [value]="item.sifraValute">
+                {{item.naziv}}
+            </option>
+            </select>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <div class="button-group">
+            <button [disabled]='!forma.valid' class="btn btn-success mr-2" type="submit">
+                Sacuvaj vrstu kredita
+            </button>
+            <button class="btn btn-danger ml-2" (click)="resetujFormu()" type="button">
+                Odustani
+            </button>
+        </div>
+
+    </div>
+</form>
